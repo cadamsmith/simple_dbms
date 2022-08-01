@@ -36,3 +36,4 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/src/main/resources/com/cadamsmith/bookstoremanager/user_secrets/db_credentials.json
