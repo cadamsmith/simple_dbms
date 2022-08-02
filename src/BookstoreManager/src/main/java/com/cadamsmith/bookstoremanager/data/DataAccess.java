@@ -1,5 +1,7 @@
 package com.cadamsmith.bookstoremanager.data;
 
+import com.cadamsmith.bookstoremanager.models.StatementResult;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +26,9 @@ public class DataAccess
     {
         try
         {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor()
-                    .newInstance();
+            Class.forName("com.mysql.cj.jdbc.Driver")
+                .getDeclaredConstructor()
+                .newInstance();
 
             connection = DriverManager.getConnection(connectionString);
         }
@@ -35,12 +38,87 @@ public class DataAccess
         }
     }
 
-    public ResultSet execute(String query) throws SQLException
+    public StatementResult executeStatement(String statementText)
+    {
+        try
+        {
+            // clean data
+            statementText = statementText.trim();
+
+            boolean isSelectStatement = statementText.toUpperCase().startsWith("SELECT");
+
+            if (isSelectStatement)
+            {
+                return executeQueryStatement(statementText);
+            }
+            else
+            {
+                return executeModifyStatement(statementText);
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return new StatementResult(e.getMessage());
+        }
+    }
+
+    private StatementResult executeQueryStatement(String statementText) throws SQLException
+    {
+        Statement statement = connection.createStatement();
+
+        ResultSet resultSet = statement.executeQuery(statementText);
+
+        int columnCount = resultSet.getMetaData().getColumnCount();
+        List<String> columnNames = new ArrayList<>();
+        for (int column = 1; column <= columnCount; column++)
+        {
+            String columnName = resultSet.getMetaData().getColumnName(column);
+            columnNames.add(columnName);
+        }
+
+        List<List<String>> dataEntries = new ArrayList<>();
+        while (resultSet.next())
+        {
+            List<String> dataEntry = new ArrayList<>();
+            for (int column = 1; column <= columnCount; column++)
+            {
+                String entryValue = resultSet.getString(column);
+                dataEntry.add(entryValue);
+            }
+            dataEntries.add(dataEntry);
+        }
+
+        int selectCount = dataEntries.size();
+
+        return new StatementResult("Success! " + selectCount + " rows matched by statement.", columnNames, dataEntries);
+    }
+
+    private StatementResult executeModifyStatement(String statementText) throws SQLException
+    {
+        Statement statement = connection.createStatement();
+
+        statement.executeUpdate(statementText);
+        int updateCount = statement.getUpdateCount();
+
+        return new StatementResult("Success! " + updateCount + " rows updated by statement.");
+    }
+
+    public List<String> getTableNames() throws SQLException
     {
         try
         {
             Statement statement = connection.createStatement();
-            return statement.executeQuery(query);
+            String query = "SHOW TABLES;";
+            ResultSet result = statement.executeQuery(query);
+
+            List<String> tableNames = new ArrayList<>();
+            while (result.next())
+            {
+                tableNames.add(result.getString(1));
+            }
+
+            return tableNames;
         }
         catch (Exception e)
         {
@@ -49,20 +127,12 @@ public class DataAccess
         }
     }
 
-    public List<String> getTableNames() throws SQLException {
+    public StatementResult getTable(String tableName)
+    {
         try
         {
-            Statement statement = connection.createStatement();
-            String SHOW_TABLES = "SHOW TABLES;";
-            ResultSet resultSet = statement.executeQuery(SHOW_TABLES);
-
-            List<String> tableNames = new ArrayList<>();
-            while (resultSet.next())
-            {
-                tableNames.add(resultSet.getString(1));
-            }
-
-            return tableNames;
+            String statementText = "SELECT * FROM " + tableName + ";";
+            return executeStatement(statementText);
         }
         catch (Exception e)
         {

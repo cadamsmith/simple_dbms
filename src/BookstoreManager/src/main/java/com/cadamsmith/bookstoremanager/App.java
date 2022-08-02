@@ -5,7 +5,6 @@ import com.cadamsmith.bookstoremanager.models.DbCredentials;
 import com.google.gson.Gson;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -20,8 +19,7 @@ import java.util.Objects;
 public class App extends Application {
 
     private final URL LAYOUT_PATH = this.getClass().getResource("views/layout.fxml");
-    private URL CREDENTIALS_PATH = this.getClass().getResource("user_secrets/db_credentials.json");
-    private final String TITLE = "Bookstore Manager";
+    private final URL CREDENTIALS_PATH = this.getClass().getResource("user_secrets/db_credentials.json");
 
     @Override
     public void start(Stage primaryStage)
@@ -36,6 +34,7 @@ public class App extends Application {
             Scene scene = new Scene(fxmlLoader.load(), 600, 500);
             primaryStage.setScene(scene);
 
+            String TITLE = "Bookstore Manager";
             primaryStage.setTitle(TITLE);
             primaryStage.show();
         }

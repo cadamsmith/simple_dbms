@@ -9,5 +9,6 @@ module com.cadamsmith.bookstoremanager {
     opens com.cadamsmith.bookstoremanager to javafx.fxml;
     exports com.cadamsmith.bookstoremanager;
     exports com.cadamsmith.bookstoremanager.controllers;
+    exports com.cadamsmith.bookstoremanager.models;
     opens com.cadamsmith.bookstoremanager.controllers to javafx.fxml;
 }
