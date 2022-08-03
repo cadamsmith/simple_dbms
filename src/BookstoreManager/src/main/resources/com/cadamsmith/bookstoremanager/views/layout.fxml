@@ -9,20 +9,20 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.Button?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.cadamsmith.bookstoremanager.controllers.MainController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.cadamsmith.bookstoremanager.controllers.MainController" maxWidth="Infinity">
     <center>
-        <SplitPane orientation="VERTICAL">
+        <SplitPane orientation="VERTICAL" maxWidth="Infinity">
             <SplitPane>
                 <StackPane>
                     <ListView fx:id="tableSelect" />
                 </StackPane>
                 <SplitPane orientation="VERTICAL">
-                    <TextArea fx:id="sqlEditor" />
-                    <Button prefWidth="Infinity" text="Submit" onMouseClicked="#executeStatement"/>
+                    <TextArea fx:id="sqlEditor" wrapText="true" />
+                    <Button prefWidth="Infinity" text="Submit" onMouseClicked="#executeStatement" />
                 </SplitPane>
             </SplitPane>
             <SplitPane fx:id="resultPane" orientation="VERTICAL">
-                <Text fx:id="resultText" />
+                <Text fx:id="resultText" boundsType="VISUAL" />
                 <TableView fx:id="resultTable" />
             </SplitPane>
         </SplitPane>
