@@ -10,6 +10,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.util.List;
@@ -91,7 +92,7 @@ public class MainController
             clearResults();
 
             loadResultTable(result);
-            loadResultText(result.responseText);
+            loadResultText(result.isSuccess, result.responseText);
         }
         catch (Exception e)
         {
@@ -131,10 +132,19 @@ public class MainController
         }
     }
 
-    private void loadResultText(String response)
+    private void loadResultText(boolean isSuccess, String response)
     {
         try
         {
+            if (isSuccess)
+            {
+                resultText.setFill(Color.GREEN);
+            }
+            else
+            {
+                resultText.setFill(Color.RED);
+            }
+
             resultText.setText(response);
         }
         catch (Exception e)

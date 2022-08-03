@@ -5,16 +5,17 @@ import java.util.List;
 
 public class StatementResult
 {
+    public final boolean isSuccess;
     public final String responseText;
     public final List<String> columnNames;
     public final List<List<String>> dataEntries;
 
-    public StatementResult(String responseText)
+    public StatementResult(boolean isSuccess, String responseText)
     {
-        this(responseText, new ArrayList<>(), new ArrayList<>());
+        this(isSuccess, responseText, new ArrayList<>(), new ArrayList<>());
     }
 
-    public StatementResult(String responseText, List<String> columnNames, List<List<String>> dataEntries)
+    public StatementResult(boolean isSuccess, String responseText, List<String> columnNames, List<List<String>> dataEntries)
     {
         try
         {
@@ -27,6 +28,7 @@ public class StatementResult
                 }
             }
 
+            this.isSuccess = isSuccess;
             this.responseText = responseText;
             this.columnNames = columnNames;
             this.dataEntries = dataEntries;
