@@ -9,6 +9,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.cadamsmith.bookstoremanager.controllers.MainController" maxWidth="Infinity" stylesheets="@../stylesheets/style.css">
     <center>
@@ -25,7 +26,11 @@
             <SplitPane fx:id="resultPane" orientation="VERTICAL">
                 <padding><Insets topRightBottomLeft="5"/></padding>
                 <Text fx:id="resultText" boundsType="VISUAL"  />
-                <TableView fx:id="resultTable" />
+                <TableView fx:id="resultTable">
+                    <placeholder>
+                        <Label />
+                    </placeholder>
+                </TableView>
             </SplitPane>
         </SplitPane>
     </center>
