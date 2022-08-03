@@ -31,7 +31,7 @@ public class App extends Application {
             DbCredentials credentials = getDbCredentials();
             DataAccess.initialize(credentials.toConnectionString());
 
-            Scene scene = new Scene(fxmlLoader.load(), 600, 500);
+            Scene scene = new Scene(fxmlLoader.load(), 600, 550);
             primaryStage.setScene(scene);
 
             String TITLE = "Bookstore Manager";
