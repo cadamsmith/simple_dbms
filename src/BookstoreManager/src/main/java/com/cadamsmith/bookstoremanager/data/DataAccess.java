@@ -131,18 +131,4 @@ public class DataAccess
             throw e;
         }
     }
-
-    public StatementResult getTable(String tableName)
-    {
-        try
-        {
-            String statementText = "SELECT * FROM " + tableName + ";";
-            return executeStatement(statementText);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            throw e;
-        }
-    }
 }

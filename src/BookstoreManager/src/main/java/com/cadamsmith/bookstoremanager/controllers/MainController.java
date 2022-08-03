@@ -76,8 +76,10 @@ public class MainController
     {
         try
         {
-            StatementResult result = DataAccess.getInstance().getTable(tableName);
-            loadResults(result);
+            String statement = "SELECT * FROM " + tableName + ";";
+            sqlEditor.setText(statement);
+
+            executeStatement();
         }
         catch (Exception e)
         {
