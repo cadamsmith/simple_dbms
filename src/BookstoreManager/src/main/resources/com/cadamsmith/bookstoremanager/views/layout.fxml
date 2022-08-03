@@ -6,8 +6,9 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TableView?>
-
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Button?>
+
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.cadamsmith.bookstoremanager.controllers.MainController">
     <center>
         <SplitPane orientation="VERTICAL">
@@ -15,14 +16,15 @@
                 <StackPane>
                     <ListView fx:id="tableSelect" />
                 </StackPane>
-                <StackPane>
-                    <TextArea fx:id="queryEditor" />
-                </StackPane>
+                <SplitPane orientation="VERTICAL">
+                    <TextArea fx:id="sqlEditor" />
+                    <Button prefWidth="Infinity" text="Submit" onMouseClicked="#executeStatement"/>
+                </SplitPane>
             </SplitPane>
-            <StackPane>
+            <SplitPane fx:id="resultPane" orientation="VERTICAL">
                 <Text fx:id="resultText" />
                 <TableView fx:id="resultTable" />
-            </StackPane>
+            </SplitPane>
         </SplitPane>
     </center>
 </BorderPane>

@@ -2,6 +2,7 @@ package com.cadamsmith.bookstoremanager.controllers;
 
 import com.cadamsmith.bookstoremanager.data.DataAccess;
 import com.cadamsmith.bookstoremanager.models.StatementResult;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,25 +10,32 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 import java.util.List;
 
 public class MainController
 {
-    public Text resultText;
     @FXML
     private ListView<Button> tableSelect;
     @FXML
-    private TextArea queryEditor;
+    private TextArea sqlEditor;
+
+    @FXML
+    public SplitPane resultPane;
     @FXML
     private TableView<ObservableList<String>> resultTable;
+    @FXML
+    public Text resultText;
 
     public void initialize()
     {
         try
         {
             loadTableSelectors();
+
+            resultText.wrappingWidthProperty().bind(resultPane.widthProperty());
         }
         catch (Exception e)
         {
@@ -82,11 +90,6 @@ public class MainController
         try
         {
             clearResults();
-
-            if (result.getRowCount() <= 0)
-            {
-                return;
-            }
 
             loadResultTable(result);
             loadResultText(result.responseText);
@@ -156,5 +159,13 @@ public class MainController
         {
             e.printStackTrace();
         }
+    }
+
+    public void executeStatement(MouseEvent mouseEvent)
+    {
+        String sqlStatement = sqlEditor.getText();
+
+        StatementResult result = DataAccess.getInstance().executeStatement(sqlStatement);
+        loadResults(result);
     }
 }

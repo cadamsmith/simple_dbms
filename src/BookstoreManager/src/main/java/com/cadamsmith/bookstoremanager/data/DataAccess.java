@@ -45,6 +45,12 @@ public class DataAccess
             // clean data
             statementText = statementText.trim();
 
+            // validate data
+            if (statementText.toUpperCase().startsWith("DROP"))
+            {
+                return new StatementResult("DROP operation not permitted.");
+            }
+
             boolean isSelectStatement = statementText.toUpperCase().startsWith("SELECT");
 
             if (isSelectStatement)
@@ -58,8 +64,7 @@ public class DataAccess
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            return new StatementResult(e.getMessage());
+            return new StatementResult("Internal Error! " + e.getMessage());
         }
     }
 
@@ -91,7 +96,7 @@ public class DataAccess
 
         int selectCount = dataEntries.size();
 
-        return new StatementResult("Success! " + selectCount + " rows matched by statement.", columnNames, dataEntries);
+        return new StatementResult("Success! " + selectCount + " row(s) matched by statement.", columnNames, dataEntries);
     }
 
     private StatementResult executeModifyStatement(String statementText) throws SQLException
@@ -101,7 +106,7 @@ public class DataAccess
         statement.executeUpdate(statementText);
         int updateCount = statement.getUpdateCount();
 
-        return new StatementResult("Success! " + updateCount + " rows updated by statement.");
+        return new StatementResult("Success! " + updateCount + " row(s) updated by statement.");
     }
 
     public List<String> getTableNames() throws SQLException
