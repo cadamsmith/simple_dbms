@@ -8,13 +8,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.cadamsmith.bookstoremanager.controllers.MainController" maxWidth="Infinity">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.cadamsmith.bookstoremanager.controllers.MainController" maxWidth="Infinity" stylesheets="@../stylesheets/style.css">
     <center>
         <SplitPane orientation="VERTICAL" maxWidth="Infinity">
-            <SplitPane>
-                <StackPane>
-                    <ListView fx:id="tableSelect" />
+            <SplitPane dividerPositions="0.23">
+                <StackPane prefWidth="140">
+                    <ListView fx:id="tableSelect" focusTraversable="false" />
                 </StackPane>
                 <SplitPane orientation="VERTICAL">
                     <TextArea fx:id="sqlEditor" wrapText="true" />
@@ -22,7 +23,8 @@
                 </SplitPane>
             </SplitPane>
             <SplitPane fx:id="resultPane" orientation="VERTICAL">
-                <Text fx:id="resultText" boundsType="VISUAL" />
+                <padding><Insets topRightBottomLeft="5"/></padding>
+                <Text fx:id="resultText" boundsType="VISUAL"  />
                 <TableView fx:id="resultTable" />
             </SplitPane>
         </SplitPane>
