@@ -161,7 +161,7 @@ public class MainController
         }
     }
 
-    public void executeStatement(MouseEvent mouseEvent)
+    public void executeStatement()
     {
         String sqlStatement = sqlEditor.getText();
 
