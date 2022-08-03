@@ -167,5 +167,7 @@ public class MainController
 
         StatementResult result = DataAccess.getInstance().executeStatement(sqlStatement);
         loadResults(result);
+
+        loadTableSelectors();
     }
 }
