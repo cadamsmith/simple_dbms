@@ -1,4 +1,6 @@
-# Bookstore Manager
+# Simple DBMS
+
+Final project for COMP 6120: Database Systems I
 
 
 ![app-demo](https://user-images.githubusercontent.com/41703860/182658438-20190d8e-eabe-4857-aeea-267d344f66e5.gif)
